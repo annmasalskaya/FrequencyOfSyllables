@@ -19,7 +19,7 @@ class MapContainer
 public:
 
     MapContainer();
-    ~MapContainer();
+   // ~MapContainer();
     void addElement(std::string,int);
     bool find(std::string);
     void print();

@@ -6,10 +6,11 @@
 #include "smartPtr.h"
 using namespace std;
 
+typedef SmartPointer<MapContainer> MapContainerSharedPtr;
 
 int main()
 {
-    MapContainer Syllables;
+    MapContainerSharedPtr Syllables(new MapContainer());
     ifstream in;
     in.open("text");
     string word;
@@ -24,22 +25,22 @@ int main()
         for (vector<char*>::iterator it=vect.begin() ; it!=--vect.end(); ++it)
         {
             word=string(*it);
-            Syllables.addElement(word,0);
-            Syllables.find(word);
+            Syllables->addElement(word,0);
+            Syllables->find(word);
             accumulator.push_back(*it);
         }
 
     }
     try
     {
-        Syllables.print();
+        Syllables->print();
     }
     catch(exception &exc)
     {
         cout << exc.what() <<endl;
     }
 
-    Syllables.oftenSeldomOccur();
+    Syllables->oftenSeldomOccur();
     cout<<"\nТекст разбит на "<<accumulator.size()<<" слогов." <<endl;
     cout<<"Медиана:"<<MedianaFind(accumulator)<<endl;
     cout<<"Граница 30 перцентиля :"<<thirtiethPerz(accumulator)<<endl;

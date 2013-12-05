@@ -19,11 +19,12 @@ MapContainer::MapContainer():
 
 }
 
-MapContainer::~MapContainer()
+/*MapContainer::~MapContainer()
 {
+    cout<<"-==============";
     syllables->clear();
 }
-
+*/
 void MapContainer::addElement(string ar,int value)
 {
     syllables->insert(make_pair(ar,value));
@@ -63,7 +64,7 @@ bool MapContainer::find(string ar)
 
 void MapContainer::oftenSeldomOccur() // выводит 20 наиболее частых слогов и 40 наиболее редко встречаемых
 {
-    vector<pair< string, int > >  vec(syllables->begin(), syllables->end() );
+    vector<pair< string, int > >   vec(syllables->begin(), syllables->end() );
     sort(vec.begin(), vec.end(), cmp);
     unsigned counter=1,amount=20;
     cout<<"_______________________________"<<endl<<endl;
