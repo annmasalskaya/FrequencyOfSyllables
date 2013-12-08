@@ -11,6 +11,7 @@ typedef SmartPointer<MapContainer> MapContainerSharedPtr;
 int main()
 {
     MapContainerSharedPtr Syllables(new MapContainer());
+    //cout<<Syllables.getCouter();
     ifstream in;
     in.open("text");
     string word;
@@ -45,6 +46,7 @@ int main()
     cout<<"Медиана:"<<MedianaFind(accumulator)<<endl;
     cout<<"Граница 30 перцентиля :"<<thirtiethPerz(accumulator)<<endl;
     cout<<"Граница 70 перцентиля :"<<seventiethPerz(accumulator)<<endl;
+
 
     return 0;
 }

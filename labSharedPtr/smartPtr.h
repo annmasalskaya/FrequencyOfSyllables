@@ -1,7 +1,7 @@
 #ifndef SMARTPTR_H
 #define SMARTPTR_H
 #include <exception>
-
+#include <iostream>
 /*class SmartPointerException: public std::exception
 {
     const char *what() const throw()
@@ -10,6 +10,7 @@
     }
 };
 */
+
 template <typename T>
 class SmartPointer
 {
@@ -34,33 +35,46 @@ public:
     {
         return pointer!=0;
     }
+    int getCouter() const
+    {
+        return *counter;
+    }
 private:
     T *pointer;
-    int counter;
+    int *counter;
 };
 
 template <typename T>
 SmartPointer<T>::SmartPointer(T *ptr)
-    : pointer(ptr)
+    : pointer(ptr),counter(new int(0))
 {
-    counter++;
+    (*counter)++;
 }
 
 template <typename T>
 SmartPointer<T>::~SmartPointer()
 {
-    if(counter==0)
-        delete pointer;
+    if(! --(*counter))
+    {
+        delete counter;
+        counter = 0;
+        if(pointer)
+        {
+            delete pointer;
+            pointer = 0;
+        }
+    }
+
 }
 
 template <typename T>
 SmartPointer<T>::SmartPointer(const SmartPointer<T> & other)
     :pointer(other.pointer), counter(other.counter)
 {
-    if(counter)
-        counter++;
+    if(*counter)
+        (*counter)++;
     //else
-      //  throw SmartPointerException();
+    //  throw SmartPointerException();
 }
 
 
@@ -69,13 +83,22 @@ SmartPointer<T> &SmartPointer<T>::operator = (const SmartPointer<T> &other)
 {
     if (this == &other)
         return *this;
-    if((--counter)==0)
-        delete pointer;
+    if(! --(*counter))
+    {
+        delete counter;
+        counter = 0;
+        if(pointer)
+        {
+            delete pointer;
+            pointer = 0;
+        }
+    }
     pointer = other.pointer;
     counter=other.counter;
-    counter++;
+    (*counter)++;
     return *this;
 
 }
+
 #endif
 
